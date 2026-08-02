@@ -339,6 +339,68 @@ body.home .entry-content > .wp-block-uagb-container.uagb-is-root-container{
   }
 }
 
+/* WordPress (wpautop) vkládá do mřížky prázdné <p>, které by zabralo
+   buňku a rozhodilo rozložení. */
+.lw-photo-grid > p:empty,
+.lw-photo-grid > br{ display: none !important; }
+
+
+/* ==========================================================
+   PRAVIDLO PRO SKLÁDÁNÍ FOTEK V ČLÁNKU
+
+   Fotky na výšku rozbíjejí řádek, protože vedle nich zbude
+   prázdno. Podle počtu a orientace se použije jedna z variant:
+
+   A) samostatná fotka           → <figure class="photo-card">
+                                    (na celou šířku, 1140 px)
+   B) 2 nebo 4 na lezato         → <div class="lw-photo-grid">
+                                    dvě vedle sebe, 2 sloupce
+   C) lichý počet (3, 5, 7…)     → <div class="lw-photo-grid">
+                                    poslední se sama vycentruje
+   D) 2 na lezato + 1 na výšku   → <div class="lw-photo-grid lw-grid-tall">
+                                    POŘADÍ: lezato, lezato, na výšku
+                                    → vlevo dvě na sobě, vpravo portrét
+                                      přes oba řádky = kompaktní blok
+   E) víc fotek na výšku vedle
+      sebe                       → dát je do běžné mřížky (B/C);
+                                    stejná orientace se needeformuje
+
+   Orientaci pozná WebEditFotek z rozměrů, ale rozhodnutí zůstává
+   ruční — do článku se vloží odpovídající třída.
+   ========================================================== */
+/* Kompaktní blok: dvě fotky na ležato vlevo, portrét vpravo.
+   Použití: <div class="lw-photo-grid lw-grid-tall"> a v něm PŘESNĚ
+   3 fotky v pořadí ležato, ležato, na výšku. */
+.lw-photo-grid.lw-grid-tall > .photo-card:nth-child(1){ grid-column: 1; grid-row: 1; }
+.lw-photo-grid.lw-grid-tall > .photo-card:nth-child(2){ grid-column: 1; grid-row: 2; }
+.lw-photo-grid.lw-grid-tall > .photo-card:nth-child(3){
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+}
+.lw-photo-grid.lw-grid-tall > .photo-card:nth-child(3) img{
+  flex: 1 1 auto;
+  height: 100%;
+  object-fit: cover;
+}
+/* centrování poslední liché fotky se na tento blok nevztahuje */
+.lw-photo-grid.lw-grid-tall > .photo-card:last-child:nth-child(odd):not(:only-child){
+  grid-column: 2;
+  justify-self: stretch;
+  width: auto;
+}
+@media (max-width: 700px){
+  .lw-photo-grid.lw-grid-tall > .photo-card{
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
+  .lw-photo-grid.lw-grid-tall > .photo-card:nth-child(3) img{
+    height: auto;
+    object-fit: contain;
+  }
+}
+
 
 /* ==========================================================
    VÝPIS ČLÁNKŮ NA DOMOVSKÉ STRÁNCE
