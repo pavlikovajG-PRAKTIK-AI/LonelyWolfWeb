@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jak vložit fotky do galerie – lonelywolf.cz</title>
+<style>
+  :root{
+    --text:#23261F; --muted:#5C6350; --green:#35682B; --green-dark:#204A22;
+    --tint:#E7EEDD; --warm:#C0562B; --line:#D3DCC4;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; padding:34px 22px 60px;
+    color:var(--text);
+    background:linear-gradient(180deg,#E9F0DC 0%,#FBFCF8 55%) no-repeat #FBFCF8;
+    font:16px/1.6 "Segoe UI", Arial, sans-serif;
+  }
+  main{ max-width:780px; margin:0 auto; }
+  h1{ font-size:26px; color:var(--green-dark); margin:0 0 4px; }
+  .lead{ color:var(--muted); margin:0 0 28px; }
+  h2{
+    font-size:15px; text-transform:uppercase; letter-spacing:.09em;
+    color:var(--green-dark); margin:34px 0 10px;
+    padding-bottom:6px; border-bottom:2px solid var(--line);
+  }
+  ol{ padding-left:0; list-style:none; counter-reset:step; margin:0; }
+  ol > li{
+    counter-increment:step; position:relative;
+    background:#fff; border:1px solid var(--line); border-radius:10px;
+    padding:14px 16px 14px 54px; margin:0 0 10px;
+  }
+  ol > li::before{
+    content:counter(step);
+    position:absolute; left:14px; top:13px;
+    width:26px; height:26px; border-radius:50%;
+    background:var(--green); color:#fff;
+    font:700 14px/26px "Segoe UI", Arial, sans-serif; text-align:center;
+  }
+  li b{ color:var(--green-dark); }
+  kbd{
+    background:var(--tint); border:1px solid var(--line); border-radius:4px;
+    padding:1px 6px; font:600 14px/1.4 "Segoe UI", Arial, sans-serif;
+    white-space:nowrap;
+  }
+  .why{ display:block; color:var(--muted); font-size:14px; margin-top:5px; }
+  .keystep{ border-color:var(--warm); border-width:2px; }
+  .keystep::before{ background:var(--warm); }
+  .box{
+    background:var(--tint); border-left:4px solid var(--green);
+    border-radius:0 8px 8px 0; padding:12px 16px; margin:18px 0;
+    font-size:15px;
+  }
+  .box.warn{ border-left-color:var(--warm); }
+  .box p{ margin:0 0 6px; }
+  .box p:last-child{ margin:0; }
+  table{ border-collapse:collapse; width:100%; font-size:15px; margin:12px 0; }
+  th,td{ border:1px solid var(--line); padding:7px 10px; text-align:left; }
+  th{ background:var(--tint); color:var(--green-dark); font-size:13px;
+      text-transform:uppercase; letter-spacing:.06em; }
+  footer{ color:var(--muted); font-size:13px; margin-top:38px;
+          border-top:1px solid var(--line); padding-top:12px; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Jak vložit fotky do galerie</h1>
+<p class="lead">Krok za krokem, nic se nepředpokládá. Postup je ověřený na galerii
+Kostarika 2. 8. 2026.</p>
+
+<h2>A · Připravit fotky v WebEditFotek</h2>
+<ol>
+  <li>Spusť <b>WebEditFotek</b> (dvojklik na <kbd>Start-WebEditFotek.cmd</kbd>).</li>
+  <li>Záložka <b>Fotky</b> → tlačítko <kbd>📂 Vybrat složku…</kbd> → najdi složku
+      s originály pro galerii.
+      <span class="why">Otevře se normální okno Windows. Složky, které jsi
+      otevřela dřív, pak najdeš vpravo v rozbalovátku „Dříve otevřené".</span></li>
+  <li>Klikni na přednastavení <kbd>Do galerie · 2560 px · 82</kbd>.
+      <span class="why">Do galerie patří větší fotka než do článku, protože se
+      dá rozkliknout na celou obrazovku. 2560 px je hranice, nad kterou by si
+      WordPress začal dělat vlastní zmenšenou kopii.</span></li>
+  <li>Zaškrtni složku a dej <kbd>Zpracovat vybrané složky</kbd>.
+      <span class="why">Vznikne podsložka <kbd>Web</kbd> a v ní soubory
+      <kbd>nazev_web.jpg</kbd>. Ty se nahrávají na web, originály nikdy.</span></li>
+</ol>
+
+<div class="box">
+  <p><b>Popisky se doplní samy.</b> WebEditFotek zapisuje název druhu do
+  metadat fotky a WordPress si ho po nahrání přečte — vyplní <b>Title</b>,
+  <b>Caption</b> i <b>Alt text</b>. Nic nepřepisuješ ručně.</p>
+  <p>Caption je to, co se zobrazí pod rozklikinutou fotkou v galerii.</p>
+</div>
+
+<h2>B · Nahrát do WordPressu</h2>
+<ol>
+  <li>Přihlas se na <kbd>lonelywolf.cz/wp-admin</kbd>.</li>
+  <li>V levém menu <b>Media</b> → <kbd>Add New Media File</kbd>.</li>
+  <li>Přetáhni do okna všechny soubory <kbd>*_web.jpg</kbd> ze složky
+      <kbd>Web</kbd>. Počkej, až u všech zmizí modrý pruh.</li>
+</ol>
+
+<h2>C · Vložit je do galerie</h2>
+<ol>
+  <li>V levém menu <b>Portfolios</b> → klikni na název galerie
+      (Botswana, Madagascar, …).</li>
+  <li>V editoru klikni na černé tlačítko <kbd>+</kbd> (vlevo nahoře nebo
+      uprostřed prázdné stránky) → do hledání napiš <kbd>Image Gallery</kbd>
+      → vyber ho.
+      <span class="why">Je to blok od Spectry, stejný jako v ostatních
+      galeriích. Nezaměňuj s obyčejnou „Gallery" od WordPressu.</span></li>
+  <li>Blok si řekne o fotky → záložka <b>Media Library</b> → naklikej fotky
+      v pořadí, v jakém je chceš → potvrď.
+      <span class="why">Pořadí se dá později přetahat: klikni na blok a
+      v pravém panelu dej <kbd>Edit Gallery</kbd>.</span></li>
+  <li class="keystep">Vpravo přepni na záložku <b>Block</b> → rozbal panel
+      <b>Layout</b> → u <b>Image Size</b> klikni na <kbd>Full Size</kbd>.
+      <span class="why"><b>Tohle je jediné nastavení, které musíš změnit.</b>
+      Blok se rodí s hodnotou „Large" = 1024 px, ale fotka se zobrazuje na
+      1146 px, takže by se dopočítávala a byla rozmazaná.</span></li>
+  <li>Zkontroluj, že <b>Click Event</b> je <kbd>Lightbox</kbd>.
+      <span class="why">Bez toho se fotka po kliknutí nerozklikne.</span></li>
+  <li>Vpravo nahoře <kbd>Update</kbd>.</li>
+  <li>Otevři galerii na webu a podívej se na ni.</li>
+</ol>
+
+<div class="box">
+  <p><b>Type a Columns nechej být.</b> Můžou zůstat na „Tiled" a „4" —
+  naše CSS staví v galeriích jednu fotku na řádek přes celou šířku
+  a Spectřino rozvržení přebíjí.</p>
+</div>
+
+<h2>Jaká velikost kam</h2>
+<table>
+  <tr><th>Kam</th><th>Delší strana</th><th>Kvalita</th><th>Proč</th></tr>
+  <tr><td>Do článku</td><td>1920 px</td><td>85</td>
+      <td>Zobrazuje se natvrdo na 1140 px a nedá se rozkliknout.</td></tr>
+  <tr><td>Do galerie</td><td>2560 px</td><td>82</td>
+      <td>Rozklikne se do lightboxu na 96 % šířky okna.</td></tr>
+</table>
+
+<div class="box warn">
+  <p><b>Když se něco pokazí:</b> galerie je prázdná i po Update → nejspíš jsi
+  vložila obyčejnou „Gallery" místo „Image Gallery" od Spectry. Smaž blok
+  (tři tečky na bloku → Delete) a vlož ten správný.</p>
+  <p>Fotky jsou rozmazané → nemáš <b>Image Size = Full Size</b>.</p>
+</div>
+
+<footer>
+  Prázdné galerie k zaplnění (stav 2. 8. 2026): Botswana, Brazílie, Doma,
+  Helgoland, Madagascar, Španělsko. Zaplněné: Kostarika, Mix, Landscape,
+  Cyklotoulky, Horse Racing, Zoo, Pavouci.
+</footer>
+
+</main>
+</body>
+</html>
