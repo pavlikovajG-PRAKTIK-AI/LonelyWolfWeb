@@ -133,39 +133,54 @@ body.home .entry-content .wp-block-heading{
 .header-inner{
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-  /* MUSÍ být static: kdyby byl relative, logo by se centrovalo
-     podle této 34px lišty a čouhalo by nad pruh (uši pod
-     administrátorskou lištou WordPressu). */
   position: static !important;
+  min-height: 52px;              /* vyplní pruh, aby šel obsah vycentrovat */
+  align-items: center !important;
 }
-/* Logo vytažené z toku, aby nerozpínalo pruh, a přesně na jeho střed.
-   Obal MUSÍ mít stejnou výšku jako obrázek — jinak se centruje obal
-   (72 px) a vlk sedí nad středem. */
+
+/* --- JMÉNO WEBU JAKO WORDMARK ---
+   V hlavičce není logo, ale text „Lonely Wolf Photography" (šablona ho
+   vysází jako <a class="custom-logo-text">, když není nastavené logo).
+
+   POZOR: text MUSÍ být v toku. Když byl obal position:absolute (jak to
+   potřeboval obrázek loga), menu o 280px širokém wordmarku nevědělo
+   a překrývalo ho o 317 px. Řádka 21px textu pruh nerozepne — lišta
+   uvnitř má 34 px.
+   Font se musí vynutit !important, jinak vyhraje šablona (Montserrat
+   26px bold verzálkami). */
 .header-logo-wrapper{
-  position: absolute !important;
-  left: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 !important;
-  z-index: 3;
-  height: 54px !important;
-  line-height: 0 !important;
+  position: static !important;
+  transform: none !important;
+  height: auto !important;
+  line-height: normal !important;
+  margin: 0 24px 0 0 !important;
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
 }
-.header-logo-wrapper a,
-.header-logo-wrapper .custom-logo-link{
-  display: flex !important;
-  align-items: center;
-  height: 54px !important;
-  line-height: 0 !important;
+.header-logo-wrapper .custom-logo-text{
+  font-family: "Lora", Georgia, serif !important;
+  font-size: 21px !important;
+  font-weight: 600 !important;
+  letter-spacing: .06em !important;
+  line-height: 1.15 !important;
+  text-transform: none !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  white-space: nowrap;
 }
-.site-header .custom-logo,
-.site-header .site-logo img,
-.brand-logo{
-  width: 54px !important;
-  height: 54px !important;
+.header-logo-wrapper .custom-logo-text:hover{ color: var(--green-tint) !important; }
+
+/* kdyby se obrázek loga někdy vrátil, ať se vejde do pruhu */
+.site-header .custom-logo{ width: 46px !important; height: 46px !important; }
+
+@media (max-width: 1000px){
+  .header-logo-wrapper .custom-logo-text{ font-size: 18px !important; letter-spacing: .03em !important; }
 }
+@media (max-width: 700px){
+  .header-logo-wrapper .custom-logo-text{ font-size: 16px !important; }
+}
+
 .header-widgets-wrapper .sb-search{ height: 34px !important; }
 .header-widgets-wrapper .navbar-toggle{ padding: 5px 0 !important; }
 .site-header nav a{
@@ -617,3 +632,131 @@ h1, h2, h3, h4, .entry-title,
 .site-header nav a, .site-header .main-navigation a{
   font-family: "Source Sans 3", Arial, sans-serif !important;
 }
+
+/* ==========================================================
+   ESTETICKÉ ÚPRAVY (2. 8. 2026)
+   Vychází z měření celého webu, ne z dojmu. Co se našlo:
+   paleta nebyla v platnosti (zeleň šablony 54×, naše 2×),
+   teplý akcent nepoužitý ani jednou, tělo 14,67 px proti
+   nadpisu 45 px (poměr 3,07), fotky o 10 px širší než text,
+   všechny mezery 22–24 px, tři písma místo dvou.
+   ========================================================== */
+
+/* --- 1a. PALETA: přebít zeleň šablony ---
+   Celá zeleň Inspira visí na JEDNÉ proměnné (#045100 — studená,
+   skoro svítivá). Přepsáním se srovná banner i odkazy naráz. */
+:root{ --inspiro-primary-color: #204A22 !important; }
+
+/* Patička má barvu vloženou natvrdo, ne přes tu proměnnou,
+   takže ji přepsání minulo — musí se nastavit zvlášť. */
+.site-footer{ background-color: var(--green-dark) !important; }
+
+/* Odkazy: šablona má `:root :where(a…)` se specificitou 0,1,0,
+   takže samotné `a{}` prohrává. Odtud vyšší specificita. */
+.entry-content a:not(.wp-element-button):not(.uagb-text-link),
+.lw-post a,
+.site-footer a{ color: var(--green) !important; }
+.entry-content a:not(.wp-element-button):not(.uagb-text-link):hover,
+.lw-post a:hover{ color: var(--green-dark) !important; }
+
+/* --- 1b. TEPLÝ AKCENT „západ slunce" ---
+   V paletě byl a nebyl použitý ANI JEDNOU. Střídmě, jen tam,
+   kde má oko odpočinout od zeleně. */
+.site-header::after{                    /* linka západu slunce */
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg,#E8B24A 0%,#D07A2E 45%,#B8442A 100%);
+}
+.lw-counter b{ color: var(--warm) !important; font-weight: 600; }
+.uagb-post__cta a,
+.uagb-post__cta .wp-block-button__link{
+  font-family: "Source Sans 3", Arial, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  color: var(--warm) !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+.uagb-post__cta a::after{ content: " 92"; }
+.uagb-post__cta a:hover{ color: var(--green-dark) !important; }
+.entry-meta .entry-categories a{        /* kategorie jako kicker */
+  color: var(--warm) !important;
+  font-size: 12px !important;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* --- 2. TYPOGRAFIE: 17 px vs 36 px = poměr 2,12 (bylo 3,07) ---
+   11 pt je tisková míra; na obrazovce u dlouhých cestopisů malá. */
+.lw-post p{
+  font-size: 17px !important;
+  line-height: 1.65 !important;
+  max-width: 780px;              /* ~70 znaků = čitelná míra při 17 px */
+  margin-left: auto;
+  margin-right: auto;
+}
+.single .entry-title,
+.single .entry-header .entry-title{
+  font-size: 36px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+}
+/* Lora 700 je těžkopádná, 600 je její optimum — a wordmark
+   už 600 má, takže se to zároveň sjednotí. */
+h1, h2, h3, h4,
+.uagb-post__title, .uagb-post__title a{ font-weight: 600 !important; }
+.uagb-post__title{ font-size: 26px !important; }
+.uagb-post__items > article:first-child .uagb-post__title{ font-size: 34px !important; }
+.photo-card figcaption{ font-size: 14px !important; }
+.uagb-post__excerpt{ font-size: 16px !important; line-height: 1.6 !important; }
+
+/* Montserrat ze šablony pryč — byl to nechtěný třetí hlas.
+   Zbýval i v mobilním (odsuvném) menu, kam `.site-header nav a`
+   nedosáhne. */
+.menu-item a,
+.mobile-menu a,
+nav.main-navigation a,
+#site-navigation a{ font-family: "Source Sans 3", Arial, sans-serif !important; }
+
+/* --- 3. FOTKY ŠIRŠÍ NEŽ TEXT ---
+   Článkový sloupec má jen 970 px (stránky 1200), takže limit
+   1140 px se na články NIKDY nevztáhl: text 900, fotky 910 —
+   rozdíl 10 px, fotografické gesto neviditelné. Fotky se proto
+   z textového sloupce vylámou a vycentrují na viewport. */
+.lw-post .photo-card,
+.lw-post .lw-photo-grid{
+  width: min(1140px, 92vw);
+  max-width: none;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+/* v mřížce zůstávají karty v buňkách, nesmí se lámat znovu */
+.lw-photo-grid .photo-card{ width: auto; margin-left: 0; transform: none; }
+
+/* --- 4. SVISLÝ RYTMUS ---
+   Všechny mezery byly 22–24 px, takže se nic neseskupovalo
+   a fotka patřila stejně textu nad i pod sebou.
+   POZOR na KOLAPS OKRAJŮ: margin-bottom předchozí karty přebíjel
+   margin-top následující (bere se max), proto mají karty v článku
+   nulové okraje a všechny mezery určují + pravidla. */
+.lw-post .photo-card,
+.lw-post .lw-photo-grid{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.lw-post p + .photo-card,
+.lw-post p + .lw-photo-grid{ margin-top: 30px !important; }
+.lw-post .photo-card + .photo-card,
+.lw-post .photo-card + .lw-photo-grid,
+.lw-post .lw-photo-grid + .photo-card,
+.lw-post .lw-photo-grid + .lw-photo-grid{ margin-top: 14px !important; }
+.lw-post .photo-card + p,
+.lw-post .lw-photo-grid + p{ margin-top: 52px !important; }
+
+/* --- 5. PATIČKA: pryč s kreditem šablony --- */
+.site-info .copyright span:last-child{ display: none !important; }
