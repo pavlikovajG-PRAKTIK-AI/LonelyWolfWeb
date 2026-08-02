@@ -473,6 +473,43 @@ html:not([data-lwlang]) .uagb-post__excerpt [lang="en"]{ display: none; }
 }
 .spectra-image-gallery__media,
 .spectra-image-gallery__media-thumbnail{ border-radius: 10px !important; overflow: hidden; }
+
+/* Galerie: jedna fotka na řádek přes celou šířku (bylo 4 sloupce
+   po 221 px), šířka 1140 stejně jako fotky v článcích.
+
+   Spectra používá dlaždicovou mřížku, kde grid-auto-rows odpovídá
+   šířce sloupce a každá fotka zabírá N řádků podle poměru. Při
+   jednom sloupci z toho vyjde řádek vysoký 1140 px, takže všechny
+   fotky by se ořezaly na ČTVEREC. Proto mřížku opouštíme a jdeme
+   na obyčejný blok, kde si každá fotka drží svůj poměr.
+   (Cestou taky pozor: fotky mají loading="lazy" a NEMAJÍ atributy
+   width/height, takže samotné height:auto uvnitř mřížky složilo
+   řádky na nulu.) */
+.single-rara-portfolio .spectra-image-gallery{
+  display: block !important;
+  width: auto !important;
+  max-width: none !important;
+  margin-left: calc((100% - min(1140px, 92vw)) / 2) !important;
+  margin-right: calc((100% - min(1140px, 92vw)) / 2) !important;
+}
+.single-rara-portfolio .spectra-image-gallery__media-wrapper{
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 0 22px !important;
+}
+.single-rara-portfolio .spectra-image-gallery__media-sizer{ display: none !important; }
+.single-rara-portfolio .spectra-image-gallery__media{
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+}
+.single-rara-portfolio .spectra-image-gallery__media-thumbnail{
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  border-radius: 10px !important;
+}
 /* odkazy na předchozí/další galerii pod fotkami */
 .single-rara-portfolio .post-navigation{ display: none !important; }
 /* Spectra drží rozkliknutou fotku na 80 % šířky a 70 % výšky */
