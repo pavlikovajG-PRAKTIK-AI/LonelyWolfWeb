@@ -95,6 +95,19 @@ h1, h2, h3, h4{ font-weight: 600 !important; }
   color: #fff !important;
   text-decoration: none !important;
   white-space: nowrap;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 12px;
+}
+/* Běžící vlk. Šablona vykreslí BUĎ obrázek loga, NEBO název webu,
+   nikdy oba — proto je vlk dekorativní pozadí ::before a název
+   zůstává skutečným vybíratelným textem. */
+.header-logo-wrapper .custom-logo-text::before{
+  content: "";
+  flex: 0 0 auto;
+  width: 92px;
+  height: 46px;
+  background: url(https://lonelywolf.cz/wp-content/uploads/2026/08/logo-vlk-bezi.png) no-repeat center / contain;
 }
 .header-logo-wrapper .custom-logo-text:hover{ color: var(--green-tint) !important; }
 .site-header .custom-logo{ width: 46px !important; height: 46px !important; }
@@ -116,9 +129,11 @@ h1, h2, h3, h4{ font-weight: 600 !important; }
 
 @media (max-width: 1000px){
   .header-logo-wrapper .custom-logo-text{ font-size: 18px !important; letter-spacing: .03em !important; }
+  .header-logo-wrapper .custom-logo-text::before{ width: 76px; height: 38px; }
 }
 @media (max-width: 700px){
   .header-logo-wrapper .custom-logo-text{ font-size: 16px !important; }
+  .header-logo-wrapper .custom-logo-text::before{ width: 60px; height: 30px; }
 }
 
 /* ==========================================================
@@ -508,6 +523,26 @@ html:not([data-lwlang]) .uagb-post__excerpt [lang="en"]{ display: none; }
   width: 100% !important;
   height: auto !important;
   object-fit: contain !important;
+  border-radius: 10px !important;
+}
+/* Galerie sestavené z jednotlivých obrázků (Pavouci) se řídí
+   stejným pravidlem: jedna fotka na řádek přes celou šířku.
+   Na portfoliu chybí obal .lw-post, takže pravidla pro článek
+   sem nedosáhnou a fotky zůstávaly ve dvou sloupcích po 447 px. */
+.single-rara-portfolio .lw-photo-grid{
+  display: block !important;
+  width: auto !important;
+  max-width: none !important;
+  margin-left: calc((100% - min(1140px, 92vw)) / 2) !important;
+  margin-right: calc((100% - min(1140px, 92vw)) / 2) !important;
+}
+.single-rara-portfolio .lw-photo-grid > figure{
+  width: 100% !important;
+  margin: 0 0 22px !important;
+}
+.single-rara-portfolio .lw-photo-grid > figure img{
+  width: 100% !important;
+  height: auto !important;
   border-radius: 10px !important;
 }
 /* odkazy na předchozí/další galerii pod fotkami */
