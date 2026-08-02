@@ -1,0 +1,95 @@
+BLOGY PRO LONELYWOLF.CZ — co je v tomto adresáři
+=================================================
+
+Podklady pro Clauda ve WordPressu. Soubory jsou plain text —
+otevři, Ctrl+A, Ctrl+C a vlož Claudovi do chatu.
+
+
+POŘADÍ PRÁCE
+=================================================
+
+  1. lonelywolf-styly.css
+     Globální CSS. Vlož JAKO PRVNÍ do
+     Vzhled → Přizpůsobit → Další CSS → Publikovat.
+     Bez něj obrázky přetékají bílou kartu, chybí zelený gradient
+     a přepínač jazyků není zelený.
+
+  2. INSTRUKCE-pro-claude-web.html
+     Pět oprav webu, které nejsou o obsahu článků:
+       - vložit nové CSS
+       - vyčistit stránku Blog (pryč banner a podnadpisy —
+         blog = rovnou boxy s příspěvky pod menu)
+       - banner s jaguárem přesunout nad About
+       - smazat tři demo články ze šablony
+       - vložit zbývající články
+     Na konci je kontrolní seznam.
+
+  3. Jednotlivé články
+     Každý soubor je samostatný a obsahuje všechno potřebné:
+     perex, tabulku fotek, náhledový obrázek, HOTOVÉ HTML
+     ke zkopírování, postup a kontrolní seznam.
+
+     Claudovi dávej JEDEN ČLÁNEK NAJEDNOU. Nedávej mu
+     BLOGY-pro-claude.html, pokud si nejsi jistá — je dlouhý
+     a Claude v něm ztrácí přehled.
+
+
+ČLÁNKY
+=================================================
+
+  botswana-hrosi-pro-claude.html
+      Hroši — Botswana, 7 fotek, CZ+EN
+      HOTOVO — vložené, publikované, s náhledovým obrázkem:
+      https://lonelywolf.cz/hrosi/
+      Znovu už ho nevkládej. Slouží jako vzor, jak mají
+      ostatní články vypadat.
+
+  spanelsko-rys-pro-claude.html
+      Rys iberský — Španělsko, 6 fotek, CZ+EN
+      Připraveno k vložení.
+
+  botswana-sloni-pro-claude.html
+      Sloni — Botswana, 8 fotek, CZ+EN
+      Připraveno k vložení.
+
+  botswana-selmy-pro-claude.html
+      Šelmy — Botswana, 10 fotek, CZ+EN
+      Připraveno k vložení.
+
+  botswana-zoborozci-pro-claude.html
+      Zoborožci — Botswana, 3 fotky, JEN ČESKY
+      Anglický překlad zatím chybí. Buď ho doplň v aplikaci
+      WebEditFotek a soubor přegeneruj, nebo článek vlož jen
+      česky — přepínač CZ | EN bude fungovat, ale EN bude prázdné.
+
+  BLOGY-pro-claude.html
+      Všechny články v jednom souboru (43 KB). Užitečné jako
+      přehled pro tebe, na práci s Claudem radši jednotlivé
+      soubory výše.
+
+
+NA CO POZOR
+=================================================
+
+  - Obsah článku se vkládá VÝHRADNĚ blokem Vlastní HTML.
+    Blok „Obrázek" rozbije bílou kartu pod fotkou.
+
+  - Na <img> nikdy nedávej atributy width/height — fotka by
+    přetekla kartu. Šířku řídí CSS.
+
+  - Každý článek musí mít Náhledový obrázek (Featured image),
+    jinak se ve výpisu na domovské stránce zobrazí bez fotky.
+    Který soubor použít, je u každého článku uvedené.
+
+  - Vždy tmavé písmo na světlém pozadí. Nikdy tmavé pozadí.
+
+
+KDYŽ SE NĚCO ZMĚNÍ
+=================================================
+
+Tyto soubory generuje aplikace WebEditFotek (app.py, běží na
+127.0.0.1:8777). Když upravíš text článku nebo popisky:
+
+  Blog → vyber článek → Vytvořit materiál pro Clauda
+
+Soubory se přepíšou znovu do tohoto adresáře.

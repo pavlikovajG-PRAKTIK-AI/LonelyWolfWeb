@@ -1,0 +1,83 @@
+GALERIE — ÚPRAVY
+================
+
+1) VLOŽIT CSS
+   Vzhled → Přizpůsobit → Další CSS → celý obsah smaž a nahraď
+   souborem lonelywolf-styly.css → Publikovat.
+
+   Řeší:
+     - nadpis galerie 28 px zeleně, nahoru (pás 93 → 41 px)
+     - zakulacené rohy miniatur v galeriích (10 px)
+     - rozkliknutá fotka na 96 % šířky / 92 % výšky
+       (Spectra ji drží na 80 % / 70 %)
+     - skryté odkazy na předchozí/další galerii pod fotkami
+     - zakulacené rohy boxů na domovské stránce (16 px)
+
+   POZOR na jednu věc při případných dalších úpravách:
+   Spectra vkládá do stránky vlastní pravidla typu
+   .uagb-block-XXXX.is-grid .uagb-post__inner-wrap { border-radius: 0 }
+   s vyšší specificitou. Cokoli, co má přebít Spectru, potřebuje
+   !important — bez toho to tiše nefunguje.
+
+
+2) GALERIE V ANGLIČTINĚ JSOU PRÁZDNÉ
+
+   Příčina: Polylang má typ příspěvku Portfolio nastavený jako
+   přeložitelný, takže anglická verze čeká na vlastní překlad
+   každé galerie. Fotky se ale překládat nemají.
+
+   Jazyky → Nastavení → sekce „Vlastní typy příspěvků a taxonomie"
+   (Custom post types and Taxonomies) → ODŠKRTNI Portfolio
+   (rara-portfolio) → Uložit.
+
+   Tím se galerie přestanou dělit po jazycích a v obou verzích
+   se zobrazí totéž.
+
+
+3) ZRUŠIT STRÁNKU GALLERIES
+
+   Menu Galerie teď vede na /galleries/ (stránka ID 3048), kde je
+   jen nadpis GALLERIES, šest podtržených textových odkazů
+   a jedna fotka. Rozbalovací menu obsahuje totéž, takže je
+   zbytečná.
+
+   a) Vzhled → Menu → u položky Galerie přepiš URL na  #
+      (zůstane jen jako rozbalovací nadřazená položka)
+   b) Stránky → Galleries → Přesunout do koše
+
+   Udělej to v OBOU menu (Main Menu i Main Menu English).
+
+
+4) NOVÁ GALERIE KOSTARIKA Z OBSAHU WILD
+
+   Wild je položka typu Portfolio na /portfolio/wild/ a obsahuje
+   jeden blok Spectra Image Gallery s 18 fotkami.
+
+   a) Portfolio → Wild → klikni na blok galerie → tři tečky →
+      Kopírovat
+   b) Portfolio → Přidat nový → název: Kostarika → vlož blok
+      (Ctrl+V) → Publikovat
+   c) Portfolio → Wild → Přesunout do koše
+
+
+5) MENU: PRYČ WILD, PŘIDAT KOSTARIKA
+
+   Vzhled → Menu, v OBOU menu (Main Menu i Main Menu English):
+
+   a) Smaž Wild z horní úrovně
+   b) Smaž Wild z rozbalovacího Galerie (je i tam)
+   c) Vlastní odkazy → URL
+      https://lonelywolf.cz/portfolio/kostarika/
+      Text: Kostarika → Přidat do menu
+   d) Přetáhni Kostarika pod Galerie jako podpoložku, nad Zoo
+   e) Uložit menu
+
+   Menu musí zůstat na jednu řádku.
+
+
+KONTROLA
+   /portfolio/kostarika/ — 18 fotek, malý zelený nadpis nahoře,
+   kulaté rohy, klik zvětší fotku skoro na celou obrazovku,
+   pod fotkami nejsou odkazy na jiné galerie.
+   V menu není Wild, Galerie se jen rozbaluje.
+   Po přepnutí na English galerie NEJSOU prázdné.

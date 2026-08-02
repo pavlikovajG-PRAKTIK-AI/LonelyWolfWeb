@@ -1,0 +1,47 @@
+INVENTURA LONELYWOLF.CZ — 2. 8. 2026
+=====================================
+
+WordPress: aktuální verze (core hlásí "You have the latest version")
+Šablona: Inspiro (WPZOOM) 1.9.x — aktivní
+
+PLUGINY (po údržbě 2. 8. 2026)
+  aktivní:
+    code-snippets 3.9.6
+    contact-form-7 6.1.6         (aktualizováno z 5.9.8)
+    elementor 3.23.4             (update na 4.x ČEKÁ na zálohu!)
+    polylang 3.8.6               (odpojený z menu, plugin běží)
+    presto-player 4.3.2          (aktualizováno z 3.0.4)
+    raratheme-companion 1.4.4    (aktualizováno z 1.4.3)
+    ultimate-addons-for-gutenberg (Spectra) 2.20.1
+                                 (aktualizováno z 2.15.1, security fix)
+    astra-sites (Starter Templates) 4.7.3 (aktualizováno z 4.4.0)
+  smazané 2. 8. 2026 (byly neaktivní):
+    akismet 5.3, classic-editor 1.6.4, rara-one-click-demo-import 1.3.4
+
+CODE SNIPPETS
+  5  LW Visitor Counter                       PHP  AKTIVNÍ
+  6  LW Language Toggle CZ/EN (Krok 8)        JS   neaktivní (duplikát)
+  7  LW Language Toggle … - footer output     PHP  AKTIVNÍ
+  1-4 vzorové snippety pluginu               neaktivní
+
+MENU "Menu" (id 3, česky, přiřazené):
+  Blog(/) · Galerie(#) [Kostarika, Zoo, Landscape, Horse Racing,
+  Cyklotoulky, Mix, Pavouci, Španělsko, Helgoland] ·
+  Hornclass · About
+MENU "Main Menu English" (id 31):
+  Blog(/) · Gallery(#) [Costa Rica + tytéž] · Hornclass · About(/en/about-2/)
+MENU "Primární" (id 2): jen Home — nepoužívané
+
+OBSAH
+  Články (5): hrosi 3231, selmy 3259, sloni 3265, zoborozci 3266,
+              rys-ibersky 3275 — vše publikováno, CZ+EN, perex CZ+EN
+  Stránky: Blog 267 (domovská, výpis), About 3128 (banner+toggle),
+           Hornclass; Galleries 3048 V KOŠI
+  Portfolia (9): kostarika 3292, helgoland, spanelsko, pavouci, mix,
+           landscape, cyklotoulky, horse-racing, zoo; wild 3030 V KOŠI
+
+POZNÁMKY
+  - Additional CSS je jediný zdroj vzhledových úprav (viz .css v záloze)
+  - nepoužívané šablony (astra, rife-free, perfect-portfolio, twenty*)
+    čekají na smazání
+  - témata mají dostupné aktualizace (řešit spolu s Elementorem)

@@ -1,0 +1,557 @@
+/* ==========================================================
+   LONELYWOLF.CZ — globální styly
+   Vlož CELÝ tento soubor do:
+   Vzhled → Přizpůsobit → Další CSS  (starý obsah nahraď)
+   ========================================================== */
+
+/* --- BARVY --- */
+:root{
+  --surface:   #FFFFFF;
+  --text:      #23261F;
+  --muted:     #5C6350;
+  --green:     #35682B;
+  --green-dark:#204A22;
+  --green-tint:#E7EEDD;
+  --warm:      #C0562B;
+}
+
+body{
+  color: var(--text);
+  background: linear-gradient(180deg, #D6E4C4 0%, #E9F0DC 30%, #FBFCF8 70%) no-repeat;
+  background-color: #FBFCF8;
+  background-attachment: fixed;
+}
+
+/* Šablona Inspiro dává obalu .site-content-contain neprůhledně
+   bílé pozadí, které gradient na body úplně překryje. Tohle je
+   ten důvod, proč gradient nebyl vidět. Obaly musí být průhledné. */
+.site,
+.site-content-contain,
+.site-content,
+.site-main,
+article.post,
+article.page,
+.entry-content{
+  background: transparent !important;
+}
+
+a{ color: var(--green); }
+a:hover{ color: var(--green-dark); }
+h1, h2, h3{ color: var(--green-dark); }
+
+
+/* ==========================================================
+   PRUHY NA CELOU ŠÍŘKU (banner nad About apod.)
+   Šablona má správné pravidlo pro plnou šířku, ale Spectra
+   ho přebíjí vloženým margin-left:0, takže pruh začínal
+   63 px od kraje a vpravo přetékal → vodorovný posuvník.
+   ========================================================== */
+.entry-content > .alignfull,
+.entry-content > .wp-block-uagb-container.alignfull{
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+}
+
+/* pojistka: 100vw počítá i šířku svislého posuvníku */
+html, body{ overflow-x: hidden; }
+
+/* Fotka na pozadí kontejneru vyplní pruh a needeformuje se.
+   Obecné pravidlo — platí i pro banner s jaguárem nad About.
+   Kontejnery bez fotky na pozadí to neovlivní. */
+.wp-block-uagb-container.alignfull{
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Blog = jen boxy s příspěvky, žádný banner.
+   Banner s jaguárem patří nad About, ne sem.
+   Tohle je jen rychlá záplata — správné řešení je ten blok
+   na stránce Blog smazat v editoru (je to v instrukcích). */
+body.home .entry-content > .wp-block-uagb-container.alignfull:first-child{
+  display: none !important;
+}
+
+/* Zrušit VŠECHNY nadpisy na domovské stránce.
+   Musí být oba selektory: „Blog" přes fotku je blok Spectry
+   (wp-block-uagb-advanced-heading), ale „Fotky z divočiny" se
+   při přepsání textu změnil na obyčejný nadpis WordPressu
+   (wp-block-heading). Titulky boxů s příspěvky jsou
+   .uagb-post__title, takže se jich to netýká.
+   Nezávisí to na generovaných ID bloků. */
+body.home .wp-block-uagb-advanced-heading,
+body.home .entry-content .wp-block-heading{
+  display: none !important;
+}
+
+
+/* ==========================================================
+   ŠÍŘKY — užší bílé pásy po stranách
+
+   Šablona Inspiro dává obsahu 1200 px se odsazením 30 px,
+   takže využitelná šířka je 1140 px. Ten strop NEPŘEBÍJÍME —
+   je to záměr autora šablony a drží čitelnost i na tabletu.
+   Bílé pásy zmizí tím, že fotky ten prostor konečně vyplní
+   (dřív byly zaškrcené na 900 px).
+   ========================================================== */
+.lw-post{
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0;
+}
+.lw-post p{
+  font-size: 11pt;
+  line-height: 1.6;
+  margin: 0 auto 14px;   /* auto = sloupec vycentrovaný pod fotkami */
+  /* 1140 px by byly moc dlouhé řádky na čtení, proto je text
+     užší než fotky. Když ho chceš na celou šířku, smaž max-width. */
+  max-width: 900px;
+  text-align: justify;   /* do bloku */
+  hyphens: none;         /* bez rozdělování slov (její volba) */
+  -webkit-hyphens: none;
+}
+
+
+/* ==========================================================
+   MEZERY — hlavní úklid
+
+   Menu je position:fixed, takže .site-content padding-top se MUSÍ
+   rovnat výšce pruhu — jinak se obsah schová pod menu.
+   Teď: pruh 62 px, padding-top 62 px. Když změníš jedno, změň druhé.
+   ========================================================== */
+/* Horní pruh zúžený ze 125 na 62 px. Logo je vytažené z toku
+   (position:absolute), takže pruh nerozpíná, a je 54 px, aby se
+   do 62px pruhu vešlo celé (4 px vzduchu nad i pod). */
+.site-header .navbar{
+  padding: 5px 0 !important;
+  position: relative !important;
+  min-height: 62px;          /* pruh musí být vyšší než logo */
+  box-sizing: border-box;
+}
+.header-inner{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  /* MUSÍ být static: kdyby byl relative, logo by se centrovalo
+     podle této 34px lišty a čouhalo by nad pruh (uši pod
+     administrátorskou lištou WordPressu). */
+  position: static !important;
+}
+/* Logo vytažené z toku, aby nerozpínalo pruh, a přesně na jeho střed.
+   Obal MUSÍ mít stejnou výšku jako obrázek — jinak se centruje obal
+   (72 px) a vlk sedí nad středem. */
+.header-logo-wrapper{
+  position: absolute !important;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 !important;
+  z-index: 3;
+  height: 54px !important;
+  line-height: 0 !important;
+  display: flex;
+  align-items: center;
+}
+.header-logo-wrapper a,
+.header-logo-wrapper .custom-logo-link{
+  display: flex !important;
+  align-items: center;
+  height: 54px !important;
+  line-height: 0 !important;
+}
+.site-header .custom-logo,
+.site-header .site-logo img,
+.brand-logo{
+  width: 54px !important;
+  height: 54px !important;
+}
+.header-widgets-wrapper .sb-search{ height: 34px !important; }
+.header-widgets-wrapper .navbar-toggle{ padding: 5px 0 !important; }
+.site-header nav a{
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+
+/* MUSÍ se rovnat výšce pruhu výše (62 px). */
+.site-content{ padding-top: 62px !important; }
+
+/* Dolní pruh zúžený z 262 na 138 px. */
+.site-footer .footer-widgets{ padding-top: 10px !important; }
+.site-footer .footer-widgets .widget{ margin-bottom: 6px !important; }
+.site-footer .widget-column{ margin-bottom: 0 !important; }
+.site-footer .site-info{ padding: 8px 0 !important; }
+
+.entry-content{
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Ozdobná linka pod nadpisy (.entry-title::after) měla okraje
+   40+48 px = 88 px vzduchu. Pryč s ní, všude. */
+.entry-header .entry-title::after{ display: none !important; }
+
+/* --- stránky (About, Hornclass): nadpis malý, zelený, těsně --- */
+body.page:not(.home) .entry-header{ padding: 0 !important; margin: 0 0 4px !important; }
+body.page:not(.home) .entry-header .inner-wrap{ margin-top: 0 !important; margin-bottom: 0 !important; }
+body.page:not(.home) .entry-title{
+  font-size: 28px !important;
+  color: var(--green-dark) !important;
+  margin: 10px 0 6px !important;
+  letter-spacing: .02em;
+}
+
+/* --- na článku: nadpis těsněji --- */
+.entry-header{
+  margin-bottom: 8px !important;
+  padding: 10px 0 0 !important;
+}
+.entry-header .entry-title{ margin: 16px 0 4px !important; }
+.entry-meta{ margin-bottom: 12px !important; }
+
+/* Skrýt „by <e-mail>" v hlavičce článku. Kategorie a datum zůstávají.
+   POZOR: tohle e-mail schová jen před čtenářem — v HTML stránky
+   zůstává (4 výskyty + 2 odkazy na autora) a spamboti si ho odtud
+   vyberou. Trvalé řešení je změnit zobrazované jméno v profilu,
+   viz bod 7 v instrukcích. */
+.entry-meta .entry-author{ display: none !important; }
+
+/* --- na domovské stránce: zrušit pás s titulkem „BLOG" ---
+   Ten pás byl vysoký 175 px a nic neříkal. Mřížka s příspěvky
+   teď začíná hned pod menu.
+   Platí JEN pro domovskou stránku (body.home), na článcích
+   nadpis zůstává. */
+body.home .entry-header{ display: none !important; }
+
+/* --- Spectra kontejner s výpisem měl padding 100px nahoře
+   i dole. Platí jen pro domovskou stránku, aby to nezasáhlo
+   banner nad About. --- */
+body.home .entry-content > .wp-block-uagb-container.uagb-is-root-container{
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+}
+
+/* (nadpisy sekcí na domovské stránce jsou skryté výše) */
+
+
+/* ==========================================================
+   PŘEPÍNAČ CZ | EN
+   ========================================================== */
+.lw-post[lang="cs"] [lang="en"]{ display: none; }
+.lw-post[lang="en"] [lang="cs"]{ display: none; }
+
+.lang-switch{
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  margin: 0 0 22px;   /* odsazeno, ať se tlačítka nedotýkají fotky */
+  padding-right: 4px;
+}
+.lang-switch button{
+  font: 700 12px/1 Arial, Helvetica, sans-serif;
+  letter-spacing: .08em;
+  padding: 7px 12px;
+  border: 1px solid var(--green);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+}
+.lang-switch button.is-active{
+  background: var(--green);
+  color: #fff;
+}
+
+
+/* ==========================================================
+   FOTKA V BÍLÉ KARTĚ
+   ========================================================== */
+.photo-card{
+  background: #fff;
+  padding: 8px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(31,58,32,.14);
+  max-width: 1140px;
+  margin: 24px auto;
+}
+/* zakulacené všechny čtyři rohy — popisek je pod fotkou v kartě,
+   takže i spodní rohy můžou být kulaté */
+.photo-card img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+.photo-card figcaption{
+  font: italic 11pt/1.35 Arial, Helvetica, sans-serif;
+  color: var(--muted);
+  text-align: left;
+  margin-top: 6px;
+  padding: 0 4px 4px;
+}
+
+
+/* ==========================================================
+   MŘÍŽKA FOTEK (víc fotek vedle sebe)
+   ========================================================== */
+/* Vždy 2 sloupce. !important je tu potřeba proto, že Claude
+   ve WordPressu píše počet sloupců inline (u tří fotek dával
+   3 sloupce) a bez sjednocení by pravidla pro osamocenou fotku
+   níže nesouhlasila se skutečným rozložením. */
+.lw-photo-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 16px;
+  max-width: 1140px;
+  margin: 24px auto;
+  align-items: start;
+}
+/* v mřížce karta vyplní svou buňku — limit 1140 px zde neplatí */
+.lw-photo-grid .photo-card{
+  max-width: none;
+  margin: 0;
+}
+
+/* --- osamocená fotka na střed ---
+   Při lichém počtu zbyde poslední fotka sama v řádku a dřív
+   se lepila k levému kraji. */
+
+/* jediná fotka v mřížce → na celou šířku (nemá s čím srovnávat) */
+.lw-photo-grid > .photo-card:only-child{
+  grid-column: 1 / -1;
+}
+
+/* lichý počet 3, 5, 7… → poslední na střed, stejně široká
+   jako ostatní (50 % minus polovina mezery) */
+.lw-photo-grid > .photo-card:last-child:nth-child(odd):not(:only-child){
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: calc(50% - 8px);
+}
+
+@media (max-width: 700px){
+  /* na mobilu je jeden sloupec, takže centrování se musí vypnout —
+     jinak by každá lichá poslední fotka byla o polovinu užší */
+  .lw-photo-grid{ grid-template-columns: 1fr !important; }
+  .lw-photo-grid > .photo-card:last-child:nth-child(odd):not(:only-child){
+    grid-column: auto;
+    width: auto;
+  }
+}
+
+
+/* ==========================================================
+   VÝPIS ČLÁNKŮ NA DOMOVSKÉ STRÁNCE
+   Titulek a datum přes fotku, jako na naturephoto.cz.
+
+   Celou tuhle sekci můžeš smazat a výpis se vrátí do původní
+   podoby (fotka, pod ní titulek) — nic jiného se nerozbije.
+   ========================================================== */
+
+.uagb-post__items{ gap: 20px !important; }
+
+/* --- HERO: nejnovější článek přes celou šířku mřížky ---
+   První box se roztáhne přes všechny sloupce, fotka je širší
+   (21:9) a titulek větší. Ostatní boxy zůstávají v mřížce. */
+.uagb-post__items > article:first-child{
+  grid-column: 1 / -1;
+}
+.uagb-post__items > article:first-child .uagb-post__image img{
+  aspect-ratio: 21 / 9;
+}
+.uagb-post__items > article:first-child .uagb-post__title{
+  font-size: 30px !important;
+  min-height: 70px;
+}
+@media (max-width: 700px){
+  .uagb-post__items > article:first-child .uagb-post__image img{
+    aspect-ratio: 3 / 2;
+  }
+  .uagb-post__items > article:first-child .uagb-post__title{
+    font-size: 20px !important;
+  }
+}
+
+/* !important je tu nutné: Spectra vkládá do stránky vlastní
+   pravidlo .uagb-block-XXXX.is-grid .uagb-post__inner-wrap
+   s border-radius: 0, které má vyšší specificitu a jinak
+   zakulacení přebije. */
+.uagb-post__inner-wrap{
+  background: #fff !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 20px rgba(31,58,32,.14) !important;
+}
+
+/* fotka: stejný poměr u všech karet, ať mřížka drží linku */
+.uagb-post__image{
+  position: relative;
+  margin: 0 !important;
+}
+.uagb-post__image img{
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+/* ztmavení spodní části fotky, aby byl bílý text čitelný */
+.uagb-post__image::after{
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0,0,0,.78) 0%, rgba(0,0,0,.35) 45%, transparent 100%);
+  pointer-events: none;
+}
+
+/* titulek vytáhnout nahoru přes fotku */
+.uagb-post__title{
+  position: relative;
+  z-index: 2;
+  margin: -74px 0 0 !important;
+  padding: 0 16px 14px;
+  font-size: 20px !important;
+  line-height: 1.25 !important;
+  min-height: 60px;
+  display: flex;
+  align-items: flex-end;
+}
+.uagb-post__title a{
+  color: #fff !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,.8);
+  text-decoration: none;
+}
+
+/* datum ano, e-mail autora ne */
+.uagb-post-grid-byline{
+  padding: 12px 16px 0 !important;
+  margin: 0 !important;
+}
+.uagb-post__author{ display: none !important; }
+.uagb-post__date{
+  color: var(--muted) !important;
+  font-size: 12px !important;
+  letter-spacing: .04em;
+}
+
+.uagb-post__excerpt{
+  padding: 6px 16px 0 !important;
+  margin: 0 !important;
+  font-size: 11pt;
+  line-height: 1.55;
+}
+
+/* Dvojjazyčné perexy ve výpisu: přepínají se podle volby
+   uložené přepínačem CZ|EN v článcích (JS v zápatí nastavuje
+   data-lwlang na <html>). Bez JS se zobrazí jen čeština. */
+html[data-lwlang="en"] .uagb-post__excerpt [lang="cs"]{ display: none; }
+html[data-lwlang="cs"] .uagb-post__excerpt [lang="en"]{ display: none; }
+html:not([data-lwlang]) .uagb-post__excerpt [lang="en"]{ display: none; }
+.uagb-post__cta{
+  padding: 10px 16px 16px !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 700px){
+  .uagb-post__title{ font-size: 18px !important; }
+}
+
+
+/* ==========================================================
+   GALERIE (portfolio) — nadpis, rohy, navigace, lightbox
+   Scope .single-rara-portfolio = jen stránky galerií.
+   ========================================================== */
+
+/* nadpis menší, zelený, nahoru (entry-header 93 -> 41 px) */
+.single-rara-portfolio .entry-header{
+  padding-top: 0 !important;
+  margin-bottom: 4px !important;
+}
+.single-rara-portfolio .entry-title{
+  font-size: 28px !important;
+  color: var(--green-dark) !important;
+  margin: 0 0 4px !important;
+}
+
+/* zakulacené rohy miniatur v Spectra galerii */
+.spectra-image-gallery__media,
+.spectra-image-gallery__media-thumbnail{
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+
+/* pryč s odkazy na předchozí/další galerii pod fotkami */
+.single-rara-portfolio .post-navigation{ display: none !important; }
+
+/* rozkliknutá fotka skoro na celou obrazovku
+   (Spectra ji drží na 80 % šířky a 70 % výšky) */
+.spectra-image-gallery__control-lightbox img{
+  max-width: 96% !important;
+  max-height: 92% !important;
+}
+
+
+/* ==========================================================
+   ZAKULACENÉ ROHY FOTEK VŠUDE JINDE
+   (galerie, Wild, náhledy, obrázky vložené v textu)
+   Nezasahuje logo v banneru — to je mimo .entry-content.
+   ========================================================== */
+.wild-grid img,
+.wild-lb-img,
+.entry-content .wp-block-image img,
+.entry-content .wp-block-gallery img,
+.entry-content .gallery img,
+.entry-content figure img{
+  border-radius: 10px;
+}
+
+/* full-bleed obrázky (banner nad About) bez kulatých rohů —
+   u pruhu od kraje ke kraji by kulaté rohy vypadaly rozbitě */
+.entry-content figure.alignfull img{ border-radius: 0 !important; }
+.entry-content figure.alignfull{ margin-top: 0 !important; }
+
+
+/* ==========================================================
+   POPISKY POD FOTKAMI (galerie, Wild)
+   ========================================================== */
+.wp-caption-text, figcaption, .wild-lb-cap{
+  font: italic 11pt/1.35 Arial, Helvetica, sans-serif;
+  color: var(--muted);
+  text-align: left;
+  margin-top: 6px;
+}
+
+
+/* ==========================================================
+   FONTY — Lora (nadpisy, popisky) + Source Sans 3 (text)
+   Soubory jsou NA NAŠEM SERVERU (wp-content/uploads/fonts/),
+   nahrané přes nativní WP Font Library — nic se nestahuje
+   z Googlu, GDPR-safe. 12 řezů: 2 rodiny × (400, 600,
+   400 italic) × (latin, latin-ext). Latin-ext = česká
+   diakritika, ověřeno na živém webu.
+   Pozn.: v Customizeru je tento blok s konkrétními
+   unicode-range hodnotami (standardní Google latin/latin-ext).
+   ========================================================== */
+/* @font-face bloky viz Customizer — vzor:
+@font-face{font-family:'Lora';font-style:normal;font-weight:400;
+  font-display:swap;
+  src:url(https://lonelywolf.cz/wp-content/uploads/fonts/lora-latin-400.woff2) format('woff2');
+  unicode-range: ...;}
+soubory: {lora|sourcesans3}-{latin|latin-ext}-{400|600}{i}.woff2 */
+
+body, button, input, select, textarea{
+  font-family: "Source Sans 3", Arial, Helvetica, sans-serif;
+}
+h1, h2, h3, h4, .entry-title,
+.uagb-post__title, .uagb-post__title a, .uagb-heading-text{
+  font-family: "Lora", Georgia, serif !important;
+}
+.photo-card figcaption, .wp-caption-text, figcaption, .wild-lb-cap{
+  font-family: "Lora", Georgia, serif !important;
+}
+.lang-switch button, .uagb-post__date, .entry-meta{
+  font-family: "Source Sans 3", Arial, sans-serif !important;
+}
+.site-header nav a, .site-header .main-navigation a{
+  font-family: "Source Sans 3", Arial, sans-serif !important;
+}

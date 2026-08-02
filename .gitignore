@@ -1,0 +1,13 @@
+# WXR exporty obsahu drzime lokalne (Web\Backups), do gitu nepatri
+*.xml
+
+# fotky a binarky
+*.jpg
+*.jpeg
+*.png
+*.tif
+*.tiff
+*.woff2
+
+# docasne
+_*

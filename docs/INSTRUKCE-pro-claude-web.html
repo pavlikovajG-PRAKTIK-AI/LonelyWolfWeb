@@ -1,0 +1,208 @@
+CO ZBÝVÁ NA LONELYWOLF.CZ
+=========================
+
+Zásada: žádné banery a podnadpisy na blogu. Blog = rovnou boxy
+s příspěvky pod menu. Vždy tmavé písmo na světlém pozadí.
+
+Hotovo, nedělej znovu: latinské demo texty smazané, článek Hroši
+publikovaný s náhledovým obrázkem (https://lonelywolf.cz/hrosi/ —
+vzor pro ostatní).
+
+
+1) VLOŽIT NOVÉ CSS
+=========================
+
+Vzhled → Přizpůsobit → Další CSS
+Starý obsah CELÝ smaž, nahraď souborem lonelywolf-styly.css,
+publikuj.
+
+Co to dělá:
+  - Skryje pás s titulkem „BLOG" (byl vysoký 175 px a nic neříkal)
+  - Skryje nadpisy Spectry na domovské stránce („Blog" přes fotku,
+    „Fotky z divočiny")
+  - Skryje banner na domovské stránce
+  - Srazí odsazení Spectra kontejneru ze 100 px na 24 px
+  - Vrátí .site-content padding-top na 125 px — menu je fixed
+    a vysoké 125 px, při nižší hodnotě se obsah schová pod menu
+  - Boxy s příspěvky: titulek a datum přes fotku, e-mail autora
+    skrytý, jednotný poměr 3:2
+  - Opraví banner přetékající vpravo o 63 px (Spectra přebíjí
+    pravidlo šablony vloženým margin-left:0)
+
+NEDĚLEJ:
+  - Nepřebíjej .entry-content max-width: 1200px ze šablony,
+    je to záměr autora a drží čitelnost na tabletu
+  - Nedávej na banner aspect-ratio
+  - Nedávej na <img> atributy width/height
+
+
+2) VYČISTIT STRÁNKU BLOG
+=========================
+
+CSS ty bloky jen skrývá. Smaž je i v editoru, ať na stránce
+nezůstává mrtvý kód.
+
+Stránky → Blog → Upravit, smaž tyto bloky:
+  - Spectra Container s fotkou jaguára na pozadí (celý blok
+    včetně nadpisu „Blog" uvnitř)
+  - Advanced Heading „Fotky z divočiny"
+  - Advanced Heading s latinským popiskem, pokud tam prázdný zbyl
+
+Nech: Spectra Container s výpisem příspěvků (Post Grid).
+
+Výsledek: pod menu následuje rovnou mřížka boxů s příspěvky.
+
+
+3) BANNER S JAGUÁREM NAD ABOUT
+=========================
+
+Ta fotka na blog nepatří, ale nad About se hodí.
+
+  URL:     https://lonelywolf.cz/wp-content/uploads/2026/08/Banner7H3A8551_2560_web.jpg
+  rozměry: 2560 x 573 px, poměr 4.468
+
+Stránky → About → Upravit:
+  1. Na začátek stránky vlož Spectra Container
+  2. Nastav mu zarovnání na celou šířku (alignfull)
+  3. Styl → Pozadí → Obrázek → vyber Banner7H3A8551_2560_web.jpg
+  4. Velikost pozadí = Cover, Pozice = Střed, Opakování = no-repeat
+  5. Minimální výška = 430 px
+  6. Aktualizovat
+
+Nedávej do banneru žádný text. CSS už se o něj postará
+(pravidlo pro .wp-block-uagb-container.alignfull).
+
+
+4) SMAZAT TŘI DEMO ČLÁNKY
+=========================
+
+Ve výpisu jsou pořád tři články ze šablony, datum 17. 8. 2024:
+  - Landscape photography of mauris vitae magna
+  - Essential Photography: Teleconverters for Wildlife
+  - The Desolate Beauty of Greenland
+
+Příspěvky → zaškrtni tyto tři → Hromadné akce → Přesunout do koše.
+Smaž JEN tyto tři.
+
+
+5) VLOŽIT ZBÝVAJÍCÍ ČLÁNKY
+=========================
+
+Ber je jeden po druhém, každý má svůj podkladový soubor:
+
+  spanelsko-rys-pro-claude.html        Rys iberský,  6 fotek, CZ+EN
+  botswana-sloni-pro-claude.html       Sloni,        8 fotek, CZ+EN
+  botswana-selmy-pro-claude.html       Šelmy,       10 fotek, CZ+EN
+  botswana-zoborozci-pro-claude.html   Zoborožci,    3 fotky, JEN CZ
+
+U každého:
+  - Obsah vlož VÝHRADNĚ blokem Vlastní HTML. Blok „Obrázek"
+    rozbije bílou kartu pod fotkou.
+  - Fotky nahraj do Médií, zkopíruj URL a nahraď jimi
+    DOPLŇ_URL/název.jpg v hotovém HTML.
+  - Nastav Náhledový obrázek — bez něj je box ve výpisu bez fotky.
+    Který soubor použít, je u článku uvedené.
+  - Nastav ruční Výňatek podle podkladu (má <span lang="cs">
+    a <span lang="en">, aby se přepínal taky).
+
+Zoborožce vlož jen česky, anglický text se doplní později.
+
+
+6) ZARAZIT SPAM V KOMENTÁŘÍCH
+=========================
+
+Zjištěno na /selmy/: formulář na komentáře je otevřený a v hlavičce
+je zapnutý pingback endpoint. To jsou dvě cesty pro spam. V koši už
+bylo 96 spamových komentářů.
+
+Portfolio komentáře nepotřebuje → vypnout úplně. Žádný plugin,
+žádná údržba, stoprocentní účinnost.
+
+A) Vypnout pro nové příspěvky
+   Nastavení → Diskuse:
+     [ ] ODŠKRTNI „Povolit komentáře u nových příspěvků"
+     [ ] ODŠKRTNI „Povolit upozornění z jiných blogů
+         (pingbacky a trackbacky)"
+     Uložit změny
+
+B) Zavřít u JIŽ EXISTUJÍCÍCH příspěvků
+   Bod A platí jen pro nově vytvořené příspěvky, staré zůstanou
+   otevřené. Proto:
+     Příspěvky → Všechny příspěvky → zaškrtni všechny →
+     Hromadné akce → Upravit → Použít →
+     u „Komentáře" vyber „Nepovolit" → Aktualizovat
+   Totéž zvlášť pro Stránky.
+
+C) Vysypat, co už přišlo
+   Komentáře → Koš → Vysypat koš.
+   Komentáře → Spam → Vyprázdnit spam.
+
+Kdyby Jana komentáře někdy chtěla, tak NE takto, ale:
+plugin Akismet Anti-Spam (pro osobní web zdarma, chce API klíč)
++ v Nastavení → Diskuse zapnout „Komentář musí být schválen ručně".
+
+
+7) DOSTAT E-MAIL Z WEBU
+=========================
+
+U každého článku bylo „by music1919@gmail.com". Nové CSS ten řádek
+skrývá, ale to je jen kosmetika — e-mail zůstává v HTML stránky
+(4 výskyty) a ve dvou odkazech na autora. Spamboti sbírají adresy
+právě odtud, takže to souvisí s bodem 6.
+
+Trvalé řešení: WordPress vypisuje e-mail proto, že je nastavený jako
+zobrazované jméno. Změň ho na skutečné jméno:
+
+   Uživatelé → Profil (uživatel music1919@gmail.com):
+     1. Přezdívka (Nickname)  →  Jana Pavlíková
+     2. Zobrazovat jméno jako  →  vyber „Jana Pavlíková"
+     3. Aktualizovat profil
+
+Tím se e-mail přestane do stránek vypisovat úplně a nahradí ho jméno.
+Přihlašovací e-mail se tím NEMĚNÍ, jen to, co se zobrazuje.
+
+Pak ještě zkontroluj, že se e-mail nevypisuje jinde:
+   Nastavení → Obecné → „Název webu" a „Sdělení" bez e-mailu
+   Vzhled → Widgety → patička bez e-mailu
+
+CSS řádek `.entry-meta .entry-author{ display:none }` můžeš po této
+změně nechat — Jana si autora u článků zobrazovat nepřeje.
+
+
+KONTROLA
+=========================
+
+https://lonelywolf.cz
+  [ ] Pod menu následuje rovnou mřížka boxů — žádný banner,
+      žádný titulek „BLOG", žádné „Fotky z divočiny"
+  [ ] Nikde není vodorovný posuvník
+  [ ] Boxy mají titulek a datum přes fotku, bílým písmem
+  [ ] Nikde není e-mail autora
+  [ ] Všechny fotky v boxech mají stejný poměr
+  [ ] Ve výpisu jsou jen skutečné články, žádné demo z 2024
+  [ ] Pozadí je světlé se zeleným přechodem
+
+https://lonelywolf.cz/about/
+  [ ] Nad textem je banner s jaguárem na celou šířku
+
+Komentáře
+  [ ] Na /selmy/ ani /hrosi/ NENÍ formulář na komentáře
+  [ ] V Nastavení → Diskuse jsou odškrtnuté komentáře i pingbacky
+  [ ] Koš i Spam v Komentářích jsou prázdné
+
+E-mail
+  [ ] U žádného článku není „by …" s e-mailem
+  [ ] Ve výpisu na domovské stránce také ne
+  [ ] Ctrl+U (zdroj stránky) → hledej „music1919" → nula výskytů
+
+https://lonelywolf.cz/hrosi/
+  [ ] Nadpis článku je vidět (na článcích se NESKRÝVÁ)
+  [ ] Přepínač CZ | EN vpravo nad prvním odstavcem, zelený
+  [ ] EN přepne všechny odstavce, fotky zůstanou
+  [ ] Fotky nepřetékají bílou kartu, bílé pásy po stranách úzké
+  [ ] Pod fotkou dvojjazyčný popisek kurzívou
+
+Okno zúžené na ~400 px
+  [ ] Menu se sbalí do hamburgeru
+  [ ] Boxy a fotky v mřížce jsou pod sebou
+  [ ] Nikde není vodorovný posuvník
