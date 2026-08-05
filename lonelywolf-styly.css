@@ -525,6 +525,45 @@ html:not([data-lwlang]) .uagb-post__excerpt [lang="en"]{ display: none; }
   object-fit: contain !important;
   border-radius: 10px !important;
 }
+/* Popisek v galerii patří POD fotku, stejně jako v článku.
+   Spectra ho staví absolutně přes snímek a odhalí ho teprve při přejetí
+   myší, spolu se ztmavením fotografie.
+   POZOR na dvě věci, které stály čas:
+     - text není skrytý přes `color`, ale přes `-webkit-text-fill-color`,
+       které color přebíjí;
+     - obojí drží PŘECHOD, a ten je v kaskádě NAD `!important`, takže bez
+       `transition: none` nepomůže žádná specificita.
+   Zobrazení řídí atributy bloku: imageDisplayCaption zapnuto jen u galerií,
+   jejichž fotky popisek v Médiích skutečně mají (Brazílie, Helgoland),
+   captionVisibility "always" a imageDefaultCaption prázdný, aby u fotky bez
+   popisku nesvítilo „Žádný titulek". */
+.single-rara-portfolio .spectra-image-gallery__media-thumbnail-blurrer{ display: none !important; }
+.single-rara-portfolio .spectra-image-gallery__media{ overflow: visible !important; }
+.single-rara-portfolio .spectra-image-gallery__media-thumbnail-caption-wrapper{
+  position: static !important;
+  inset: auto !important;
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  background: none !important;
+  opacity: 1 !important;
+  transition: none !important;
+}
+.single-rara-portfolio .spectra-image-gallery__media-thumbnail-caption{
+  font: italic 14px/1.4 "Lora", Georgia, serif !important;
+  color: var(--muted) !important;
+  -webkit-text-fill-color: var(--muted) !important;
+  text-align: left !important;
+  margin: 6px 0 0 !important;
+  padding: 0 2px !important;
+  max-width: none !important;
+  white-space: normal !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
 /* Galerie sestavené z jednotlivých obrázků (Pavouci) se řídí
    stejným pravidlem: jedna fotka na řádek přes celou šířku.
    Na portfoliu chybí obal .lw-post, takže pravidla pro článek
