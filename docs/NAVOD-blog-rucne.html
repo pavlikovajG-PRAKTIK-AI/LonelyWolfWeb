@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jak napsat blog s fotkami ručně – lonelywolf.cz</title>
+<style>
+  :root{
+    --text:#23261F; --muted:#5C6350; --green:#35682B; --green-dark:#204A22;
+    --tint:#E7EEDD; --warm:#C0562B; --line:#D3DCC4;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; padding:34px 22px 60px; color:var(--text);
+    background:linear-gradient(180deg,#E9F0DC 0%,#FBFCF8 55%) no-repeat #FBFCF8;
+    font:16px/1.6 "Segoe UI", Arial, sans-serif;
+  }
+  main{ max-width:880px; margin:0 auto; }
+  h1{ font-size:26px; color:var(--green-dark); margin:0 0 4px; }
+  .lead{ color:var(--muted); margin:0 0 26px; }
+  h2{
+    font-size:15px; text-transform:uppercase; letter-spacing:.09em;
+    color:var(--green-dark); margin:36px 0 10px;
+    padding-bottom:6px; border-bottom:2px solid var(--line);
+  }
+  h3{ font-size:16px; color:var(--green-dark); margin:22px 0 6px; }
+  ol{ padding-left:0; list-style:none; counter-reset:step; margin:0; }
+  ol > li{
+    counter-increment:step; position:relative;
+    background:#fff; border:1px solid var(--line); border-radius:10px;
+    padding:14px 16px 14px 54px; margin:0 0 10px;
+  }
+  ol > li::before{
+    content:counter(step); position:absolute; left:14px; top:13px;
+    width:26px; height:26px; border-radius:50%;
+    background:var(--green); color:#fff;
+    font:700 14px/26px "Segoe UI", Arial, sans-serif; text-align:center;
+  }
+  li b, p b{ color:var(--green-dark); }
+  .why{ display:block; color:var(--muted); font-size:14px; margin-top:5px; }
+  .keystep{ border-color:var(--warm); border-width:2px; }
+  .keystep::before{ background:var(--warm); }
+  kbd{
+    background:var(--tint); border:1px solid var(--line); border-radius:4px;
+    padding:1px 6px; font:600 14px/1.4 "Segoe UI", Arial, sans-serif; white-space:nowrap;
+  }
+  pre{
+    background:#F7FAF2; border:1px solid var(--line); border-left:4px solid var(--green);
+    border-radius:0 8px 8px 0; padding:12px 14px; overflow-x:auto;
+    font:13px/1.55 Consolas, "Courier New", monospace; margin:10px 0 4px;
+  }
+  pre b{ color:var(--warm); font-weight:700; }
+  .cap{ font-size:13px; color:var(--muted); margin:0 0 18px; }
+  .box{
+    background:var(--tint); border-left:4px solid var(--green);
+    border-radius:0 8px 8px 0; padding:12px 16px; margin:18px 0; font-size:15px;
+  }
+  .box.warn{ border-left-color:var(--warm); }
+  .box p{ margin:0 0 6px; }
+  .box p:last-child{ margin:0; }
+  table{ border-collapse:collapse; width:100%; font-size:15px; margin:12px 0; }
+  th,td{ border:1px solid var(--line); padding:7px 10px; text-align:left; vertical-align:top; }
+  th{ background:var(--tint); color:var(--green-dark); font-size:13px;
+      text-transform:uppercase; letter-spacing:.06em; }
+  code{ background:var(--tint); padding:1px 5px; border-radius:4px; font-size:.92em; }
+  footer{ color:var(--muted); font-size:13px; margin-top:38px;
+          border-top:1px solid var(--line); padding-top:12px; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Jak napsat blog s fotkami ručně</h1>
+<p class="lead">Bez Clauda, bez aplikace. Ověřeno na struktuře článků, které
+už na webu jsou (naposledy Hroši).</p>
+
+<div class="box">
+  <p><b>Proč vůbec HTML a ne obyčejný editor.</b> Články mají přepínač
+  <kbd>CZ | EN</kbd> a obě jazykové verze uložené v jedné stránce, plus fotky
+  širší než text. To se v běžném editoru naklikat nedá, proto se článek vkládá
+  jako hotový kód. Zvládneš to ale i tak — je to pořád jen kopírování a
+  přepisování textu mezi značkami.</p>
+</div>
+
+<h2>A · Nahrát fotky a získat jejich adresy</h2>
+<ol>
+  <li>Fotky si připrav v <b>WebEditFotek</b>, přednastavení <kbd>Do článku</kbd>
+      (1920 px). Vzniknou soubory <code>nazev_web.jpg</code> ve podsložce
+      <code>Web</code>.</li>
+  <li>Ve WordPressu <b>Media → Add New Media File</b> → přetáhni je tam.</li>
+  <li class="keystep">U každé fotky klikni na ni a vpravo si zkopíruj
+      <b>File URL</b> (dlouhá adresa začínající
+      <code>https://lonelywolf.cz/wp-content/uploads/…</code>).
+      <span class="why">Nespoléhej na to, že adresa je jen složka plus název
+      souboru. WordPress názvy upravuje — z <code>7H3A4995 (2)</code> udělá
+      <code>7H3A4995-2</code> — a když už soubor stejného jména existuje,
+      přidá <code>-1</code>. Zkopírovaná adresa je jediná jistá.</span></li>
+</ol>
+
+<h2>B · Vytvořit článek a vlepit kód</h2>
+<ol>
+  <li><b>Posts → Add New Post</b>. Nahoru napiš český nadpis.</li>
+  <li class="keystep">Vpravo nahoře <b>tři tečky</b> (⋮) →
+      <kbd>Editor kódu</kbd> (Code editor).
+      <span class="why">Tohle je ten důležitý přepínač. Ve vizuálním editoru by
+      se HTML vložilo jako text, který se vypíše na stránku.</span></li>
+  <li>Do plochy vlož celý kód článku podle šablony níže a fotkám dopiš
+      zkopírované adresy.</li>
+  <li>Zpět <b>⋮ → Vizuální editor</b> a podívej se, jestli to drží pohromadě.</li>
+  <li>Vpravo nastav <b>Kategorie</b> (země) a <b>Náhledový obrázek</b>
+      (Featured image) — ten se ukáže v boxu na domovské stránce.</li>
+  <li>Do <b>Výňatku</b> (Excerpt) napiš perex, a to <b>obojazyčně</b>:
+      <pre>&lt;span lang="cs"&gt;Český perex.&lt;/span&gt;&lt;span lang="en"&gt;English teaser.&lt;/span&gt;</pre>
+      <span class="why">Boxy na domovské stránce se přepínají podle stejného
+      přepínače jako článek a berou text právě odsud.</span></li>
+  <li><kbd>Publikovat</kbd>. Pak si článek otevři na webu a přepni CZ | EN.</li>
+</ol>
+
+<h2>C · Šablona článku</h2>
+<p class="cap">Zkopíruj celé a přepiš, co je <b>oranžově</b>. Přepínač jazyků
+musí být první, jinak nemá co přepínat.</p>
+<pre>&lt;article class="lw-post" lang="cs"&gt;
+
+  &lt;div class="lang-switch" role="group" aria-label="Jazyk / Language"&gt;
+    &lt;button type="button" data-lang="cs" class="is-active"&gt;CZ&lt;/button&gt;
+    &lt;button type="button" data-lang="en"&gt;EN&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;h2&gt;<b>Podnadpis sekce</b>&lt;/h2&gt;
+
+  &lt;p lang="cs"&gt;<b>Český odstavec.</b>&lt;/p&gt;
+  &lt;p lang="en"&gt;<b>English paragraph.</b>&lt;/p&gt;
+
+  &lt;figure class="photo-card"&gt;
+    &lt;img src="<b>ADRESA_FOTKY</b>" alt="<b>hroch obojživelný</b>" loading="lazy"&gt;
+    &lt;figcaption&gt;<b>hroch obojživelný – Hippopotamus (Hippopotamus amphibius)</b>&lt;/figcaption&gt;
+  &lt;/figure&gt;
+
+  &lt;p lang="cs"&gt;<b>Další český odstavec.</b>&lt;/p&gt;
+  &lt;p lang="en"&gt;<b>Another English paragraph.</b>&lt;/p&gt;
+
+&lt;/article&gt;</pre>
+
+<div class="box">
+  <p><b>Tři pravidla, na kterých to stojí.</b></p>
+  <p>1. Každý odstavec existuje <b>dvakrát</b> — <code>lang="cs"</code> a
+  <code>lang="en"</code>, hned za sebou. Přepínač jeden z nich schová.</p>
+  <p>2. Fotka je vždy <code>&lt;figure class="photo-card"&gt;</code> s
+  <code>&lt;figcaption&gt;</code>. Bez té třídy nebude mít bílou kartu,
+  zakulacené rohy ani správnou šířku.</p>
+  <p>3. Popisek se <b>nepřekládá</b> — je ve tvaru
+  <code>český – anglický (latinský)</code> a platí pro obě verze.</p>
+</div>
+
+<h2>D · Jak skládat fotky</h2>
+<p class="cap">Pět možností, víc jich není potřeba.</p>
+
+<h3>1 · Jedna fotka přes celou šířku</h3>
+<pre>&lt;figure class="photo-card"&gt;
+  &lt;img src="<b>ADRESA</b>" alt="<b>druh</b>" loading="lazy"&gt;
+  &lt;figcaption&gt;<b>popisek</b>&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+<p class="cap">Zachová svůj poměr stran. Nejlepší na fotku, která má
+sama nést sekci.</p>
+
+<h3>2 · Dvě (nebo čtyři) na ležato vedle sebe</h3>
+<pre>&lt;div class="lw-photo-grid"&gt;
+  &lt;figure class="photo-card"&gt;…&lt;/figure&gt;
+  &lt;figure class="photo-card"&gt;…&lt;/figure&gt;
+&lt;/div&gt;</pre>
+<p class="cap">Fotky v mřížce se srovnají na jednotný poměr 3:2, aby
+spodní hrany v řádku seděly. Ořez je u tvých snímků minimální.</p>
+
+<h3>3 · Lichý počet (3, 5, 7…)</h3>
+<p class="cap">Stejná mřížka, nic navíc. Poslední fotka se sama vycentruje
+a <b>zůstane v šířce jednoho sloupce</b> — nerozšíří se přes celou řádku.</p>
+
+<h3>4 · Dvě na ležato + jedna na výšku</h3>
+<pre>&lt;div class="lw-photo-grid lw-grid-tall"&gt;
+  &lt;figure class="photo-card"&gt;<b>na ležato</b>&lt;/figure&gt;
+  &lt;figure class="photo-card"&gt;<b>na ležato</b>&lt;/figure&gt;
+  &lt;figure class="photo-card"&gt;<b>na výšku</b>&lt;/figure&gt;
+&lt;/div&gt;</pre>
+<p class="cap">Vlevo dvě na sobě, vpravo portrét přes oba řádky. Vznikne
+kompaktní blok. <b>Pořadí musí být přesně takto</b> — portrét třetí.</p>
+
+<h3>5 · Menší fotka obtékaná textem</h3>
+<p class="cap">Tady HTML psát nemusíš. Ve <b>vizuálním</b> editoru dej
+<kbd>+</kbd> → <b>Obrázek</b>, klikni na něj, v liště nad ním rozbal zarovnání
+→ <b>Zarovnat vpravo</b> nebo <b>vlevo</b>, a přetažením rohu ho zmenši
+(~300 px). Text napiš za obrázek, obtočí se sám. Na mobilu se obtékání samo
+vypne.</p>
+
+<div class="box warn">
+  <p><b>Mezery mezi fotkami a textem neřeš.</b> Řídí je CSS podle toho, co
+  následuje: text→fotka 30 px, fotka→fotka 14 px, fotka→text 52 px,
+  fotka→podnadpis 56 px. Když do kódu přidáš prázdné odstavce, jen to
+  rozhodíš.</p>
+</div>
+
+<h2>E · Časté chyby</h2>
+<table>
+  <tr><th>Co vidíš</th><th>Příčina</th></tr>
+  <tr><td>Na stránce je vypsané HTML</td>
+      <td>Vložila jsi to do vizuálního editoru. Přepni na <b>Editor kódu</b>.</td></tr>
+  <tr><td>Přepínač CZ | EN chybí nebo nefunguje</td>
+      <td>Chybí <code>class="lw-post"</code> na <code>&lt;article&gt;</code>,
+          nebo blok <code>lang-switch</code> není první.</td></tr>
+  <tr><td>Vidíš oba jazyky pod sebou</td>
+      <td>Odstavce nemají <code>lang="cs"</code> / <code>lang="en"</code>.</td></tr>
+  <tr><td>Fotka je úzká jako text</td>
+      <td>Chybí <code>class="photo-card"</code>.</td></tr>
+  <tr><td>Prázdné místo místo fotky</td>
+      <td>Špatná adresa. Zkopíruj <b>File URL</b> z Médií znovu.</td></tr>
+  <tr><td>Box na domovské stránce bez obrázku</td>
+      <td>Nenastavený <b>Náhledový obrázek</b>.</td></tr>
+  <tr><td>Perex se nepřepíná</td>
+      <td>Ve Výňatku chybí <code>&lt;span lang="cs"&gt;</code> a
+          <code>&lt;span lang="en"&gt;</code>.</td></tr>
+</table>
+
+<footer>
+  Vzhled řídí <code>lonelywolf-styly.css</code> (Vzhled → Přizpůsobit → Další CSS).
+  Přepínač jazyků obsluhuje snippet <b>LW Language Toggle CZ/EN</b> v pluginu
+  Code Snippets — nic s ním dělat nemusíš, běží sám.
+</footer>
+
+</main>
+</body>
+</html>
