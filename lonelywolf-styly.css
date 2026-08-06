@@ -388,6 +388,21 @@ body.home .entry-content > .wp-block-uagb-container.alignfull:first-child{
 .lw-post .photo-card + h2,
 .lw-post .lw-photo-grid + h2{ margin-top: 56px !important; }
 
+/* --- menší fotka obtékaná textem ---
+   Obtékání zajistí WordPress sám: u obrázku v editoru stačí
+   Zarovnat vlevo / Zarovnat vpravo a přetáhnout šířku. Tady se jen
+   dorovnává poloha a popisek.
+   Float se totiž řídí obalem článku, ne textovým sloupcem (780 px),
+   takže fotka vyčnívala 65 px za pravý okraj textu. */
+.lw-post .alignright{ margin-right: calc((100% - min(780px, 100%)) / 2) !important; }
+.lw-post .alignleft{  margin-left:  calc((100% - min(780px, 100%)) / 2) !important; }
+.lw-post .alignleft figcaption,
+.lw-post .alignright figcaption{
+  font-size: 14px !important;
+  color: var(--muted) !important;
+  text-align: left !important;
+}
+
 @media (max-width: 700px){
   .lw-photo-grid{ grid-template-columns: 1fr !important; }
   .lw-photo-grid > .photo-card:last-child:nth-child(odd):not(:only-child){
@@ -396,6 +411,14 @@ body.home .entry-content > .wp-block-uagb-container.alignfull:first-child{
   }
   .lw-photo-grid.lw-grid-tall > .photo-card{ grid-column: 1 !important; grid-row: auto !important; }
   .lw-photo-grid.lw-grid-tall > .photo-card:nth-child(3) img{ height: auto; object-fit: contain; }
+  /* Na šířce telefonu není v obtékání čitelná fotka ani text. */
+  .lw-post .alignleft,
+  .lw-post .alignright{
+    float: none !important;
+    width: auto !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
 }
 
 /* ==========================================================
