@@ -383,10 +383,20 @@ body.home .entry-content > .wp-block-uagb-container.alignfull:first-child{
 .lw-post .photo-card + .lw-photo-grid,
 .lw-post .lw-photo-grid + .photo-card,
 .lw-post .lw-photo-grid + .lw-photo-grid{ margin-top: 14px !important; }
+/* Mezera za fotkou musí být stejná jako před ní (30 px).
+   POZOR: nesmí viset jen na `+` sousedství. Každý odstavec i nadpis
+   existuje DVAKRÁT (cs a en) a viditelný je vždy jen jeden. V angličtině
+   následoval po fotce SKRYTÝ český odstavec, pravidlo padlo na něj
+   a viditelnému textu nezbylo nic — mezera se srazila na nulu.
+   Proto se pravidlo píše i pro druhé v pořadí (`+ p + p`). */
 .lw-post .photo-card + p,
-.lw-post .lw-photo-grid + p{ margin-top: 52px !important; }
+.lw-post .photo-card + p + p,
+.lw-post .lw-photo-grid + p,
+.lw-post .lw-photo-grid + p + p{ margin-top: 30px !important; }
 .lw-post .photo-card + h2,
-.lw-post .lw-photo-grid + h2{ margin-top: 56px !important; }
+.lw-post .photo-card + h2 + h2,
+.lw-post .lw-photo-grid + h2,
+.lw-post .lw-photo-grid + h2 + h2{ margin-top: 56px !important; }
 
 /* Upozornění na citlivý obsah uvnitř článku (pavouci zblízka). */
 .lw-post .lw-warn{
