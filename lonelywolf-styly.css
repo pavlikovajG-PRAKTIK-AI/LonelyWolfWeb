@@ -415,6 +415,9 @@ body.home .entry-content > .wp-block-uagb-container.alignfull:first-child{
   color: var(--muted) !important;
   text-align: left !important;
 }
+/* Nadpis další sekce nesmí vklouznout vedle obtékané fotky,
+   když je fotka vyšší než odstavec vedle ní. */
+.lw-post h2{ clear: both; }
 
 @media (max-width: 700px){
   .lw-photo-grid{ grid-template-columns: 1fr !important; }
