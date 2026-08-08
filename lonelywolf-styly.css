@@ -713,3 +713,43 @@ html[data-lwlang="cs"] .entry-title [lang="en"],
 html[data-lwlang="cs"] .uagb-post__title [lang="en"]{ display: none; }
 html:not([data-lwlang]) .entry-title [lang="en"],
 html:not([data-lwlang]) .uagb-post__title [lang="en"]{ display: none; }
+
+/* Lupa v hlavičce: obal je vycentrovaný (14–48), ale tlačítko uvnitř
+   je vysoké 50 px a přetékalo pod něj o 16 px — ikona pak vypadala,
+   že padá pod menu. */
+.header-widgets-wrapper .sb-search .sb-search-button-open{
+  height: 34px !important;
+  line-height: 34px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Přepínač jazyka v hlavičce. Sedí hned pod zeleným pruhem vpravo,
+   na světlém pozadí — v pruhu samotném už je wordmark, menu a lupa.
+   Vkládá ho snippet „LW Language switch in header", a to jen na
+   stránkách, kde je vůbec něco anglicky (galerie tedy ne).
+   Přepínače uvnitř článků byly zrušené, aby na stránce nebyly dva
+   ovladače na totéž. */
+.lw-lang-top{
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  max-width: 1140px;
+  margin: 12px auto -6px;
+  padding: 0 20px;
+}
+.lw-lang-top button{
+  font: 700 12px/1 "Source Sans 3", Arial, sans-serif;
+  letter-spacing: .08em;
+  padding: 7px 12px;
+  border: 1px solid var(--green);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+}
+.lw-lang-top button.is-active{ background: var(--green); color: #fff; }
+.lw-lang-top button:hover{ background: var(--green-tint); }
+.lw-lang-top button.is-active:hover{ background: var(--green-dark); }
