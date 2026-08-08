@@ -697,3 +697,19 @@ h1, h2, h3, h4,
 .lang-switch button, .uagb-post__date, .entry-meta{
   font-family: "Source Sans 3", Arial, sans-serif !important;
 }
+
+/* Dvojjazyčné NADPISY článků.
+   Nadpis vykresluje šablona MIMO <article class="lw-post">, takže se ho
+   přepínač jazyků nemohl dotknout a v anglické verzi zůstával česky.
+   Proto nese obě verze ve <span lang> a řídí se stejným data-lwlang na
+   <html> jako perexy na domovské stránce.
+   Do <title>, RSS a administrace se dostane jen čeština — viz snippet
+   „LW Bilingual titles - clean <title>", který se musí věsit na
+   single_post_title, ne na document_title_parts: tam už jsou značky
+   pryč a obě verze slepené. */
+html[data-lwlang="en"] .entry-title [lang="cs"],
+html[data-lwlang="en"] .uagb-post__title [lang="cs"]{ display: none; }
+html[data-lwlang="cs"] .entry-title [lang="en"],
+html[data-lwlang="cs"] .uagb-post__title [lang="en"]{ display: none; }
+html:not([data-lwlang]) .entry-title [lang="en"],
+html:not([data-lwlang]) .uagb-post__title [lang="en"]{ display: none; }
