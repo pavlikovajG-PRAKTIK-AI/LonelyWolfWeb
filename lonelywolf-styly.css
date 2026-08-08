@@ -388,6 +388,19 @@ body.home .entry-content > .wp-block-uagb-container.alignfull:first-child{
 .lw-post .photo-card + h2,
 .lw-post .lw-photo-grid + h2{ margin-top: 56px !important; }
 
+/* Upozornění na citlivý obsah uvnitř článku (pavouci zblízka). */
+.lw-post .lw-warn{
+  max-width: 780px;
+  margin: 30px auto 14px !important;
+  padding: 12px 16px;
+  background: #FBEFE7;
+  border-left: 4px solid var(--warm);
+  border-radius: 0 8px 8px 0;
+  font-weight: 600;
+  color: var(--green-dark);
+  text-align: left !important;
+}
+
 /* --- menší fotka obtékaná textem ---
    Obtékání zajistí WordPress sám: u obrázku v editoru stačí
    Zarovnat vlevo / Zarovnat vpravo a přetáhnout šířku. Tady se jen
